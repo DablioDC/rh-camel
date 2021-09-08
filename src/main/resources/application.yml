@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://${SQLSERVER_INSTANCE:sqlhomol.unicoob.local;databaseName=DataTransaction}
+    username: ${SQLSERVER_USER:app}
+    password: ${SQLSERVER_PASSWORD:brud_W7ax2sw}
+    dbcp2:
+      validation-query: SELECT 1
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServer2012Dialect
+    show-sql: ${SHOW_SQL:false}
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+    properties:
+      javax:
+        persistence:
+          query:
+            timeout: 5000
+  rabbitmq:
+    host: ${RABBITMQ_HOST:docker.dev.unicoob.local}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:sicoob}
+    password: ${RABBITMQ_PASSWORD:Sicoob2009}
+    consumers: ${CONSUMERS:4}
+    max-consumers: ${MAX_CONSUMERS:10}
+    retries: ${RETRIES:3}
+
+camel:
+  springboot:
+    main-run-controller: true
+
+servicos:
+  top-desk:
+    url: http://${TOP_DESK_URL:app.dev.unicoob.local/api/top-desk}
+    basic-auth: ${TOP_DESK_BASIC:U1ZDLVRESy5VUkEyMDA5OnNjcnkyLXBhMjJlLWgyZ2oyLWF2ZnliLWlxcWY0}
+
+rh:
+  url:
+    ativos: http://${URL_ATIVOS:app.dev.unicoob.local/api/unicoob-rh/rh/colaboradores/ativos}
+    desligados: http://${URL_DESLIGADOS:app.dev.unicoob.local/api/unicoob-rh/rh/colaboradores/desligados}
